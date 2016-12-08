@@ -1,3 +1,2 @@
-ABCDEF12345vcsaa:wq
-:wq
+ABCDEF12345vcsaa
 
