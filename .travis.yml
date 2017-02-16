@@ -14,7 +14,7 @@ addons:
 
 script:
   - cat test.txt
-  - echo "YES"
+  - echo "NO"
 #before_script:
 #  - sudo rabbitmqctl start_app
 #  - sudo rabbitmq-plugins disable rabbitmq_shovel rabbitmq_mqtt eldap
