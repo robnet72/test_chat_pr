@@ -1,0 +1,30 @@
+language: erlang
+otp_release:
+  - 17.5
+sudo: required
+addons:
+  apt:
+    packages:
+       - libpam0g-dev
+       - libexpat1-dev
+#       - oracle-java8-installer
+script:
+  - cat test.txt
+#before_script:
+#  - sudo rabbitmqctl start_app
+#  - sudo rabbitmq-plugins disable rabbitmq_shovel rabbitmq_mqtt eldap
+#  - sudo rabbitmq-plugins enable rabbitmq_management
+#  - curl http://localhost:15672/cli/rabbitmqadmin > /tmp/rabbitmqadmin && chmod +x /tmp/rabbitmqadmin
+#  - sudo rabbitmqctl add_vhost grindr_test_vhost
+#  - sudo rabbitmqctl set_permissions -p grindr_test_vhost guest ".*" ".*" ".*"
+#script: make
+#after_failure:
+#  - cat `find . -name \*.log -print | tail -3`
+#services:
+#  - redis-server
+#  - rabbitmq
+#branches:
+#  only:
+#    - stable
+#    - master
+
