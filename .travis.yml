@@ -14,7 +14,7 @@ addons:
 
 before_script:
   - >
-    if [[ "${TRAVIS_EVENT_TYPE}" == "push" && [ "${TRAVIS_BRANCH}" != "stable" || "${TRAVIS_BRANCH}" != "master" ] ]]; then
+    if [[ "${TRAVIS_EVENT_TYPE}" == "push" ]] && [[ "${TRAVIS_BRANCH}" != "stable" || "${TRAVIS_BRANCH}" != "master" ]]; then
       echo "Push will be processed only on stable and master branches, exiting..."
       exit 0
     elif [ "${TRAVIS_EVENT_TYPE}" != "pull_request" ]; then
