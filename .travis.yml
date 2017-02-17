@@ -12,9 +12,19 @@ addons:
        - libexpat1-dev
 #       - oracle-java8-installer
 
+before_script:
+  - >
+    if [[ "${TRAVIS_EVENT_TYPE}" == "push" && "${TRAVIS_BRANCH}" != "master" ]]; then
+      echo "Push will be processed only on stable and master branches, exiting..."
+      exit 0
+    elif [ "${TRAVIS_EVENT_TYPE}" == "pull_request" ]; then
+      echo "Pull request received..."
+    fi
+
 script:
   - cat test.txt
   - echo "HEY"
+  - erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell
 #before_script:
 #  - sudo rabbitmqctl start_app
 #  - sudo rabbitmq-plugins disable rabbitmq_shovel rabbitmq_mqtt eldap
