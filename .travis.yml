@@ -5,11 +5,11 @@ otp_release:
 dist: trusty
 sudo: required
 
-addons:
-  apt:
-    packages:
-       - libpam0g-dev
-       - libexpat1-dev
+#addons:
+#  apt:
+#    packages:
+#       - libpam0g-dev
+#       - libexpat1-dev
 #       - oracle-java8-installer
 
 before_script:
