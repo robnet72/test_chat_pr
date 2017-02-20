@@ -6,11 +6,11 @@ dist: trusty
 sudo: required
 
 before_script:
-  - >
-    if [[ "${TRAVIS_BRANCH}" != "test" && "${TRAVIS_BRANCH}" != "from-test" ]]; then
-      echo "Currently only test branches are supported, exiting..."
-      exit 0
-    fi
+#  - >
+#    if [[ "${TRAVIS_BRANCH}" != "test" && "${TRAVIS_BRANCH}" != "from-test" ]]; then
+#      echo "Currently only test branches are supported, exiting..."
+#      exit 0
+#    fi
   - >
     if [ "${TRAVIS_EVENT_TYPE}" == "push" ] && [[ "${TRAVIS_BRANCH}" != "stable" && "${TRAVIS_BRANCH}" != "master" ]]; then
       echo "Push event will be processed only for stable and master branches, exiting..."
