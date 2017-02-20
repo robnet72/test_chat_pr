@@ -24,3 +24,8 @@ script:
   - cat test.txt
   - echo "HELLO"
   - erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell
+
+notifications:
+  email:
+    on_success: always
+    on_failure: always
