@@ -26,12 +26,26 @@ script:
 # test if it's mergeable into master
 #  - git checkout master
 #  - git merge "origin/${TRAVIS_BRANCH}"
+  - git branch
   - cat test.txt
 
 notifications:
   email:
     on_pull_requests: true
-    recipients:
-      - robert.tibljas@grindr.com
     on_success: always
     on_failure: always
+
+notifications:
+  slack:
+    rooms:
+      - grindr:erUk5hQOSgZChjBYBBa2bbMl
+    on_success: always
+    on_failure: always
+
+after_script:
+  notifications:
+    email:
+      on_pull_requests: true
+      on_success: always
+      on_failure: always
+  - echo "ALWAYS"
