@@ -6,6 +6,7 @@ dist: trusty
 sudo: required
 
 before_script:
+  - TEST_RESULT_STR="Only pull requests and pushes to master/stable are handled"
 #  - >
 #    if [[ "${TRAVIS_BRANCH}" != "test" && "${TRAVIS_BRANCH}" != "from-test" ]]; then
 #      echo "Currently only test branches are supported, exiting..."
@@ -21,6 +22,7 @@ before_script:
     fi
 
 script:
+  - exit 0
   - erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell
 # test if it's mergeable into master
 #  - git checkout master
@@ -29,8 +31,7 @@ script:
   - cat test.txt
   - >
     COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
-  - >
-    GITHUB_COMMENT="Travis PR test result: All tests passed successfully"
+  - TEST_RESULT_STR="All tests passed successfully"
 
 notifications:
   slack:
@@ -42,4 +43,4 @@ notifications:
 after_script:
   - echo "ALWAYS"
   - >
-    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"${GITHUB_COMMENT}\"}"
+    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${TEST_RESULT_STR}\"}"
