@@ -31,7 +31,7 @@ script:
   - export COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
   - export STATE="success"
   - export STATE_DESC="Travis PR result: All tests passed"
-  - curl "https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments?access_token=${GITHUB_ACCESS_TOKEN}" -H 'Content-Type: application/json' -X POST -d "{\"body\": \"Travis PR test result: (${STATE}) - ${STATE_DESC}\"}"
+  - curl "https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis PR test result: (${STATE}) - ${STATE_DESC}\"}"
 
 notifications:
   slack:
