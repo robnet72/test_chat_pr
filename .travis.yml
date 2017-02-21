@@ -43,9 +43,4 @@ notifications:
     on_failure: always
 
 after_script:
-  notifications:
-    email:
-      on_pull_requests: true
-      on_success: always
-      on_failure: always
   - echo "ALWAYS"
