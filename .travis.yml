@@ -38,9 +38,7 @@ script:
 #    on_failure: always
 
 notifications:
-  slack:
-    rooms:
-      - grindr:e6H9sb52TVbjXjMDPheBPES2@robert.tibljas
+  slack: grindr:erUk5hQOSgZChjBYBBa2bbMl
     on_success: always
     on_failure: always
 
