@@ -22,7 +22,7 @@ before_script:
     fi
 
 script:
-  - exit 0
+  - return
   - erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell
 # test if it's mergeable into master
 #  - git checkout master
@@ -41,6 +41,5 @@ notifications:
     on_failure: always
 
 after_script:
-  - echo "ALWAYS"
   - >
     curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${TEST_RESULT_STR}\"}"
