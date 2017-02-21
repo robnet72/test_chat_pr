@@ -28,10 +28,9 @@ script:
 #  - git merge "origin/${TRAVIS_BRANCH}"
   - git branch
   - cat test.txt
-  - COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/comments/${TRAVIS_PULL_REQUEST}"
-  - STATE="true"
-  - STATE_DESC="All tests passed"
-  - GITHUB_ACCESS_TOKEN="a1b2c3d4e5f6"
+  - COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
+  - STATE="success"
+  - STATE_DESC="Travis PR result: All tests passed"
   - curl "$COMMENTS_URL?access_token=$GITHUB_ACCESS_TOKEN" -H 'Content-Type: application/json' -X POST -d "{\"body\": \"Travis PR test result: ($STATE) - $STATE_DESC\"}"
 
 notifications:
