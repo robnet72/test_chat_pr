@@ -28,6 +28,9 @@ script:
 #  - git merge "origin/${TRAVIS_BRANCH}"
   - git branch
   - cat test.txt
+  - printenv
+#  - COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/comments{/number}"
+#  - curl "$COMMENTS_URL?access_token=$GITHUB_ACCESS_TOKEN" -H 'Content-Type: application/json' -X POST -d "{\"body\": \"Jenkins PR test result: ($STATE) - $STATE_DESC\"}"
 
 notifications:
   slack:
