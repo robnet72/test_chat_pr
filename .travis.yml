@@ -23,12 +23,14 @@ before_script:
 script:
   - echo "HELLO"
   - erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell
-# merge into master
+# test if it's mergeable into master
   - git checkout master
   - git merge "origin/${TRAVIS_BRANCH}"
   - cat test.txt
 
 notifications:
   email:
+    recipients:
+      - robert.tibljas@grindr.com
     on_success: always
     on_failure: always
