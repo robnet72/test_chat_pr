@@ -21,7 +21,6 @@ before_script:
     fi
 
 script:
-  - echo "ALOHA"
   - erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell
 # test if it's mergeable into master
 #  - git checkout master
@@ -32,9 +31,7 @@ script:
     COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
   - STATE="success"
   - >
-    STATE_DESC="Travis PR result: All tests passed"
-  - >
-    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis PR test result: (${STATE}) - ${STATE_DESC}\"}"
+    STATE_DESC="Travis PR test result: All tests passed"
 
 notifications:
   slack:
@@ -45,3 +42,5 @@ notifications:
 
 after_script:
   - echo "ALWAYS"
+  - >
+    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"(${STATE}) - ${STATE_DESC}\"}"
