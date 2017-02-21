@@ -21,6 +21,7 @@ before_script:
     fi
 
 script:
+  - echo "$request.body.payload"
   - echo "HELLO"
   - erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell
 # test if it's mergeable into master
