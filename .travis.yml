@@ -29,11 +29,18 @@ script:
   - git branch
   - cat test.txt
 
+#notifications:
+#  email:
+#    on_pull_requests: true
+#    recipients:
+#      - robert.tibljas@grindr.com
+#    on_success: always
+#    on_failure: always
+
 notifications:
-  email:
-    on_pull_requests: true
-    recipients:
-      - robert.tibljas@grindr.com
+  slack:
+    rooms:
+      - grindr:e6H9sb52TVbjXjMDPheBPES2@robert.tibljas
     on_success: always
     on_failure: always
 
