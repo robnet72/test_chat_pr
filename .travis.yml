@@ -30,5 +30,7 @@ script:
 
 notifications:
   email:
+    recipients:
+      - robert.tibljas@grindr.com
     on_success: always
     on_failure: always
