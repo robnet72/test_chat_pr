@@ -30,12 +30,6 @@ script:
   - cat test.txt
 
 notifications:
-  email:
-    on_pull_requests: true
-    on_success: always
-    on_failure: always
-
-notifications:
   slack:
     rooms:
       - grindr:erUk5hQOSgZChjBYBBa2bbMl
@@ -43,9 +37,4 @@ notifications:
     on_failure: always
 
 after_script:
-  notifications:
-    email:
-      on_pull_requests: true
-      on_success: always
-      on_failure: always
   - echo "ALWAYS"
