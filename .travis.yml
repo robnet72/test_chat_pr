@@ -36,3 +36,6 @@ notifications:
       - robert.tibljas@grindr.com
     on_success: always
     on_failure: always
+
+after_script:
+  - echo "ALWAYS"
