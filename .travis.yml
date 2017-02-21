@@ -30,6 +30,7 @@ script:
 
 notifications:
   email:
+    on_pull_requests: true
     recipients:
       - robert.tibljas@grindr.com
     on_success: always
