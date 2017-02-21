@@ -29,9 +29,8 @@ script:
   - cat test.txt
   - >
     COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
-  - STATE="success"
   - >
-    STATE_DESC="Travis PR test result: All tests passed"
+    GITHUB_COMMENT="Travis PR test result: All tests passed successfully"
 
 notifications:
   slack:
@@ -43,4 +42,4 @@ notifications:
 after_script:
   - echo "ALWAYS"
   - >
-    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"(${STATE}) - ${STATE_DESC}\"}"
+    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"${GITHUB_COMMENT}\"}"
