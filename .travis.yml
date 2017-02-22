@@ -24,6 +24,7 @@ before_script:
     fi
 
 script:
+  - set -e
 # test if it's mergeable into master
 #  - git checkout master
 #  - git merge "origin/${TRAVIS_BRANCH}"
