@@ -17,10 +17,10 @@ before_script:
 
 script:
   - >
-    export COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
+    export COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments?access_token=${GITHUB_ACCESS_TOKEN}"
   - >
     notify_github() {
-      curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
+      curl "${COMMENTS_URL}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
     }
   - echo "$TRAVIS_BRANCH"
   - >
@@ -49,4 +49,4 @@ after_success:
 
 after_failure:
   - >
-    notify_github "(FAILED) Unknown error"
+    notify_github "(FAILED) Undefined error (check log)"
