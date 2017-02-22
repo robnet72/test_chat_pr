@@ -30,6 +30,7 @@ script:
 # test if it's mergeable into master
   - git checkout master
   - git merge "origin/${TRAVIS_BRANCH}"
+  - printenv
   - echo "Result $?"
   - >
     if [ $? -ne 0 ]; then
