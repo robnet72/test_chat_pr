@@ -28,8 +28,8 @@ script:
       curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
     }
 # test if it's mergeable into master
-#  - git checkout master
-#  - git merge "origin/${TRAVIS_BRANCH}"
+  - git checkout master
+  - git merge "${TRAVIS_BRANCH}"
   - >
     if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
       notify_github "(FAILED) Cannot merge into master"
