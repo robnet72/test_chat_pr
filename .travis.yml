@@ -33,7 +33,7 @@ script:
   - ./bla.sh
 #  - >
 #    if [ $? -ne 0 ]; then
-#      notify_github "FAILED: make deps"
+#      notify_github "(FAILED) make deps"
 #      exit 1
 #    fi
   - git branch
@@ -49,9 +49,9 @@ notifications:
 after_script:
   - >
     if [ $? -eq 0 ]; then
-      notify_github "All tests passed successfully"
+      notify_github "(success) All tests passed"
       exit 0
     else
-      notify_github "FAILED: unknown error"
+      notify_github "(FAILED) unknown error"
       exit 1
     fi
