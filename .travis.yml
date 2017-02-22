@@ -29,17 +29,18 @@ script:
     }
 # test if it's mergeable into master
   - git checkout master
-  - git merge "origins/${TRAVIS_BRANCH}"
+  - git merge "origin/${TRAVIS_BRANCH}"
   - >
     if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
       notify_github "(FAILED) Cannot merge into master"
       exit 1
     fi
-#  - >
-#    if [ $? -ne 0 ]; then
-#      notify_github "(FAILED) make deps"
-#      exit 1
-#    fi
+  - make deps
+  - >
+    if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
+      notify_github "(FAILED) make deps"
+      exit 1
+    fi
   - cat test.txt
 
 notifications:
