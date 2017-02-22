@@ -5,17 +5,17 @@ otp_release:
 dist: trusty
 sudo: required
 
-#addons:
-#  apt:
-#    packages:
-#       - libpam0g-dev
-#       - libexpat1-dev
-#       - oracle-java8-installer
-
 before_script:
   - >
-    if [[ "${TRAVIS_EVENT_TYPE}" == "push" ]] && [[ "${TRAVIS_BRANCH}" != "stable" || "${TRAVIS_BRANCH}" != "master" ]]; then
-      echo "Push will be processed only on stable and master branches, exiting..."
+    export COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
+#  - >
+#    if [[ "${TRAVIS_BRANCH}" != "test" && "${TRAVIS_BRANCH}" != "from-test" ]]; then
+#      echo "Currently only test branches are supported, exiting..."
+#      exit 0
+#    fi
+  - >
+    if [ "${TRAVIS_EVENT_TYPE}" == "push" ] && [[ "${TRAVIS_BRANCH}" != "stable" && "${TRAVIS_BRANCH}" != "master" ]]; then
+      echo "Push event will be processed only for stable and master branches, exiting..."
       exit 0
     elif [ "${TRAVIS_EVENT_TYPE}" != "pull_request" ]; then
       echo "For branches other then stable or master only pull requests are processed, exiting..."
@@ -23,26 +23,38 @@ before_script:
     fi
 
 script:
+  - >
+    notify_github() {
+      curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
+    }
+# test if it's mergeable into master
+  - git checkout master
+  - git merge "origin/${TRAVIS_BRANCH}"
+  - echo "Result $?"
+  - >
+    if [ $? -ne 0 ]; then
+      notify_github "(FAILED) Cannot merge into master"
+      exit 1
+    fi
+# - ./bla.sh
+#  - >
+#    if [ $? -ne 0 ]; then
+#      notify_github "(FAILED) make deps"
+#      exit 1
+#    fi
   - cat test.txt
-  - echo "HELLO"
-  - erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell
-#before_script:
-#  - sudo rabbitmqctl start_app
-#  - sudo rabbitmq-plugins disable rabbitmq_shovel rabbitmq_mqtt eldap
-#  - sudo rabbitmq-plugins enable rabbitmq_management
-#  - curl http://localhost:15672/cli/rabbitmqadmin > /tmp/rabbitmqadmin && chmod +x /tmp/rabbitmqadmin
-#  - sudo rabbitmqctl add_vhost grindr_test_vhost
-#  - sudo rabbitmqctl set_permissions -p grindr_test_vhost guest ".*" ".*" ".*"
-#script: make
-#after_failure:
-#  - cat `find . -name \*.log -print | tail -3`
 
-services:
-  - redis-server
-  - rabbitmq
+notifications:
+  slack:
+    rooms:
+      - grindr:erUk5hQOSgZChjBYBBa2bbMl
+    on_success: always
+    on_failure: always
 
-#branches:
-#  only:
-#    - stable
-#    - master
+after_success:
+  - >
+    notify_github "(success) All tests passed"
 
+after_failure:
+  - >
+    notify_github "(FAILED) Unknown error"
