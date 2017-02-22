@@ -27,6 +27,7 @@ script:
   - >
     notify_github() {
       curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
+      exit 1
     }
 # test if it's mergeable into master
 #  - git checkout master
@@ -36,7 +37,6 @@ script:
   - >
     if [ $? -ne 0 ]; then
       notify_github "FAILED"
-      exit 1
     fi
   - git branch
   - cat test.txt
