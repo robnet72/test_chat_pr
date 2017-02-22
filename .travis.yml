@@ -7,8 +7,8 @@ sudo: required
 
 before_script:
   - >
-    COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
-  - TEST_RESULT_STR="Only pull requests and pushes to master/stable are handled"
+    export COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
+  - export TEST_RESULT_STR="Only pull requests and pushes to master/stable are handled"
 #  - >
 #    if [[ "${TRAVIS_BRANCH}" != "test" && "${TRAVIS_BRANCH}" != "from-test" ]]; then
 #      echo "Currently only test branches are supported, exiting..."
@@ -24,15 +24,22 @@ before_script:
     fi
 
 script:
-  - set -e
+  - >
+    notify_and_die () {
+      curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
+      exit $2
+    }
 # test if it's mergeable into master
 #  - git checkout master
 #  - git merge "origin/${TRAVIS_BRANCH}"
-  - TEST_RESULT_STR="FAILED"
+  - export TEST_RESULT_STR="FAILED"
   - ./bla.sh
+  - >
+    if [ $? -ne 0 ]; then
+      notify_and_die ("FAILED", $?)
   - git branch
   - cat test.txt
-  - TEST_RESULT_STR="All tests passed successfully"
+  - export TEST_RESULT_STR="All tests passed successfully"
 
 notifications:
   slack:
