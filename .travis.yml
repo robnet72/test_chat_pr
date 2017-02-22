@@ -40,8 +40,10 @@ notifications:
 
 notifications:
   webhooks:
+    template:
+      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch} by %{author} %{result} in %{duration}"
     urls:
-      - "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}"
+      - "https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments?access_token=${GITHUB_ACCESS_TOKEN}"
     on_success: change # default: always
     on_failure: always # default: always
     on_start: change   # default: never
