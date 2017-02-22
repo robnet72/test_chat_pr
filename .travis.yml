@@ -33,13 +33,13 @@ script:
   - >
     if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
       notify_github "(FAILED) Cannot merge into master"
-      exit 1
+      exit $TRAVIS_TEST_RESULT
     fi
-  - make deps
+  - echo "YES"
   - >
     if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
       notify_github "(FAILED) make deps"
-      exit 1
+      exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
 
