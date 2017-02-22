@@ -27,6 +27,8 @@ script:
 # test if it's mergeable into master
 #  - git checkout master
 #  - git merge "origin/${TRAVIS_BRANCH}"
+  - TEST_RESULT_STR="FAILED"
+  - ./bla.sh
   - git branch
   - cat test.txt
   - TEST_RESULT_STR="All tests passed successfully"
@@ -38,16 +40,6 @@ notifications:
     on_success: always
     on_failure: always
 
-notifications:
-  webhooks:
-    template:
-      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch} by %{author} %{result} in %{duration}"
-    urls:
-      - https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments?access_token=${GITHUB_ACCESS_TOKEN}
-    on_success: always # default: always
-    on_failure: always # default: always
-    on_start: always   # default: never
-    on_cancel: always # default: always
-    on_error: always # default: always
-#  - >
-#    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis PR test result: ${TEST_RESULT_STR}\"}"
+after_script:
+  - >
+    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${TEST_RESULT_STR}\"}"
