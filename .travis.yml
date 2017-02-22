@@ -30,11 +30,11 @@ script:
 # test if it's mergeable into master
   - cat test.txt
   - echo "$TRAVIS_BRANCH"
-  - git checkout master
+#  - git checkout master
   - echo "$TRAVIS_BRANCH"
   - echo "$TRAVIS_PULL_REQUEST_BRANCH"
-  - printenv
-  - git merge "origin/${TRAVIS_PULL_REQUEST_BRANCH}"
+#  - printenv
+#  - git merge "origin/${TRAVIS_PULL_REQUEST_BRANCH}"
   - >
     if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
       notify_github "(FAILED) Cannot merge into master"
