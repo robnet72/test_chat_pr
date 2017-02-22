@@ -23,7 +23,6 @@ script:
       curl "${COMMENTS_URL}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
     }
   - echo "$TRAVIS_BRANCH"
-  - echo "%{build_url}"
   - >
     if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
       notify_github "(FAILED) Cannot merge into master"
@@ -50,4 +49,4 @@ after_success:
 
 after_failure:
   - >
-    notify_github "(FAILED) Unknown error"
+    notify_github "(FAILED) Undefined error (check log)"
