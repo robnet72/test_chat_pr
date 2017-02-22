@@ -29,6 +29,8 @@ script:
     }
 # test if it's mergeable into master
   - cat test.txt
+  - printenv
+  - echo "$TRAVIS_BRANCH"
   - git checkout master
   - echo "$TRAVIS_BRANCH"
   - git merge "${TRAVIS_BRANCH}"
