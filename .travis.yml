@@ -31,7 +31,7 @@ script:
   - git checkout master
   - git merge "origin/${TRAVIS_BRANCH}"
   - >
-    if [ $? -ne 0 ]; then
+    if [[ $? -ne 0 ]]; then
       notify_github "(FAILED) Cannot merge into master"
       exit 1
     fi
@@ -56,4 +56,4 @@ after_success:
 
 after_failure:
   - >
-    notify_github "(FAILED) unknown error"
+    notify_github "(FAILED) Unknown error"
