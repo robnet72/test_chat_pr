@@ -36,7 +36,7 @@ script:
 #      notify_github "(FAILED) make deps"
 #      exit 1
 #    fi
-  - git branch
+  - git checkout master
   - cat test.txt
 
 notifications:
