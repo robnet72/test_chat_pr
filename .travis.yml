@@ -8,7 +8,6 @@ sudo: required
 before_script:
   - >
     export COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
-  - export TEST_RESULT_STR="Only pull requests and pushes to master/stable are handled"
 #  - >
 #    if [[ "${TRAVIS_BRANCH}" != "test" && "${TRAVIS_BRANCH}" != "from-test" ]]; then
 #      echo "Currently only test branches are supported, exiting..."
@@ -27,22 +26,18 @@ script:
   - >
     notify_github() {
       curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
-      if [ $2 -ne 0 ]; then
-        exit $2
-      fi
     }
 # test if it's mergeable into master
 #  - git checkout master
 #  - git merge "origin/${TRAVIS_BRANCH}"
-  - export TEST_RESULT_STR="FAILED"
   - ./bla.sh
-  - >
-    if [ $? -ne 0 ]; then
-      notify_github "FAILED: make deps" $?
-    fi
+#  - >
+#    if [ $? -ne 0 ]; then
+#      notify_github "FAILED: make deps"
+#      exit 1
+#    fi
   - git branch
   - cat test.txt
-  - export TEST_RESULT_STR="All tests passed successfully"
 
 notifications:
   slack:
@@ -52,4 +47,9 @@ notifications:
     on_failure: always
 
 after_script:
-  - notify_github "All tests passed successfully"
+  - >
+    if [ $? -eq 0 ]; then
+      notify_github "All tests passed successfully"
+    else
+      notify_github "FAILED: unknown error"
+    fi
