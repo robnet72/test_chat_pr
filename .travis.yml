@@ -7,10 +7,16 @@ sudo: required
 
 before_script:
   - >
+    notify_github() {
+      curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
+    }
+  - >
     export COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
   - >
     if [ "${TRAVIS_EVENT_TYPE}" == "push" ] && [[ "${TRAVIS_BRANCH}" != "stable" && "${TRAVIS_BRANCH}" != "master" ]]; then
-      echo "Push event will be processed only for stable and master branches, exiting..."
+      RESULT_STR="Push event will be processed only for stable and master branches, exiting..."
+      echo "$RESULT_STR"
+      notify_github "$RESULT_STR"
       exit 0
     elif [ "${TRAVIS_EVENT_TYPE}" != "pull_request" ]; then
       echo "For branches other then stable or master only pull requests are processed, exiting..."
