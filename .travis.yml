@@ -30,10 +30,10 @@ script:
 # test if it's mergeable into master
 #  - git checkout master
 #  - git merge "origin/${TRAVIS_BRANCH}"
-  - ./bla.sh
+# - ./bla.sh
 #  - >
 #    if [ $? -ne 0 ]; then
-#      notify_github "FAILED: make deps"
+#      notify_github "(FAILED) make deps"
 #      exit 1
 #    fi
   - git branch
@@ -46,12 +46,10 @@ notifications:
     on_success: always
     on_failure: always
 
-after_script:
+after_success:
   - >
-    if [ $? -eq 0 ]; then
-      notify_github "All tests passed successfully"
-      exit 0
-    else
-      notify_github "FAILED: unknown error"
-      exit 1
-    fi
+    notify_github "(success) All tests passed"
+
+after_failure:
+  - >
+    notify_github "(FAILED) unknown error"
