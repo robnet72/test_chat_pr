@@ -1,6 +1,5 @@
 language: erlang
-otp_release:
-  - 17.5
+otp_release: 17.5
 
 dist: trusty
 sudo: required
@@ -21,7 +20,6 @@ script:
   - >
     notify_github() {
       curl "${GITHUB_COMMENTS_URL}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis PR test result: ${1}\"}"
-      return 1
     }
   - echo "$TRAVIS_BRANCH"
   - >
