@@ -20,7 +20,7 @@ script:
     export COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
   - >
     notify_github() {
-      curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
+      curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1} -- (build url: %{build_url})\"}"
     }
   - echo "$TRAVIS_BRANCH"
   - >
