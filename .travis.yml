@@ -27,12 +27,13 @@ script:
   - >
     if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
       notify_github "(FAILED) Cannot merge into master"
+      exit $TRAVIS_TEST_RESULT
     fi
-#      exit $TRAVIS_TEST_RESULT
   - echo "$TRAVIS_PULL_REQUEST_BRANCH"
   - >
     if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
       notify_github "(FAILED) make deps"
+      exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
 
@@ -49,4 +50,4 @@ after_success:
 
 after_failure:
   - >
-    notify_github "(FAILED) Undefined error (check log)"
+    notify_github "(FAILED) For details check log"
