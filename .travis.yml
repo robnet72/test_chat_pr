@@ -45,7 +45,7 @@ notifications:
     on_failure: always
 
 after_success:
-  - notify_github "(success) All tests passed successfully"
+  - notify_github "(success) All checks have passed"
 
 after_failure:
   - notify_github "(FAILED) For details check log"
