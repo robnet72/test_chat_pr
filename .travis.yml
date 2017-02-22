@@ -6,6 +6,8 @@ dist: trusty
 sudo: required
 
 before_script:
+  - >
+    COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
   - TEST_RESULT_STR="Only pull requests and pushes to master/stable are handled"
 #  - >
 #    if [[ "${TRAVIS_BRANCH}" != "test" && "${TRAVIS_BRANCH}" != "from-test" ]]; then
@@ -22,14 +24,11 @@ before_script:
     fi
 
 script:
-  - return
 # test if it's mergeable into master
 #  - git checkout master
 #  - git merge "origin/${TRAVIS_BRANCH}"
   - git branch
   - cat test.txt
-  - >
-    COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments"
   - TEST_RESULT_STR="All tests passed successfully"
 
 notifications:
@@ -39,6 +38,14 @@ notifications:
     on_success: always
     on_failure: always
 
-after_script:
-  - >
-    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${TEST_RESULT_STR}\"}"
+notifications:
+  webhooks:
+    urls:
+      - "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}"
+    on_success: change # default: always
+    on_failure: always # default: always
+    on_start: change   # default: never
+    on_cancel: always # default: always
+    on_error: always # default: always
+#  - >
+#    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis PR test result: ${TEST_RESULT_STR}\"}"
