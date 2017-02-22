@@ -25,9 +25,8 @@ before_script:
 
 script:
   - >
-    notify_and_die () {
+    notify_github() {
       curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${1}\"}"
-      exit $2
     }
 # test if it's mergeable into master
 #  - git checkout master
@@ -36,7 +35,9 @@ script:
   - ./bla.sh
   - >
     if [ $? -ne 0 ]; then
-      notify_and_die ("FAILED", $?)
+      notify_github ("FAILED")
+      exit 1
+    fi
   - git branch
   - cat test.txt
   - export TEST_RESULT_STR="All tests passed successfully"
@@ -49,5 +50,4 @@ notifications:
     on_failure: always
 
 after_script:
-  - >
-    curl "${COMMENTS_URL}?access_token=${GITHUB_ACCESS_TOKEN}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis test result: ${TEST_RESULT_STR}\"}"
+  - notify_github("All tests passed successfully")
