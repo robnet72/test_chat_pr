@@ -1,0 +1,49 @@
+language: erlang
+otp_release: 17.5
+
+dist: trusty
+sudo: required
+
+before_script:
+  - >
+    if [ "${TRAVIS_EVENT_TYPE}" == "push" ] && [[ "${TRAVIS_BRANCH}" != "stable" && "${TRAVIS_BRANCH}" != "master" ]]; then
+      echo "Push event will be processed only for stable and master branches, exiting..."
+      exit 0
+    elif [ "${TRAVIS_EVENT_TYPE}" != "pull_request" ]; then
+      echo "For branches other then stable or master only pull requests are processed, exiting..."
+      exit 0
+    fi
+
+script:
+  - >
+    export GITHUB_COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments?access_token=${GITHUB_ACCESS_TOKEN}"
+  - >
+    notify_github() {
+      curl "${GITHUB_COMMENTS_URL}" -H "Content-Type: application/json" -X POST -d "{\"body\": \"Travis PR test result: ${1}\"}"
+    }
+  - echo "$TRAVIS_BRANCH"
+  - >
+    if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
+      notify_github "(FAILED) Cannot merge into master"
+      exit $TRAVIS_TEST_RESULT
+    fi
+  - echo "$TRAVIS_PULL_REQUEST_BRANCH"
+  - >
+    if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
+      notify_github "(FAILED) make deps"
+      exit $TRAVIS_TEST_RESULT
+    fi
+  - cat test.txt
+
+notifications:
+  slack:
+    rooms:
+      - grindr:erUk5hQOSgZChjBYBBa2bbMl
+    on_success: always
+    on_failure: always
+
+after_success:
+  - notify_github "(success) All checks have passed"
+
+after_failure:
+  - notify_github "(FAILED) For details check log"
