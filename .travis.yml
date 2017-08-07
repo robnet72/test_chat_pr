@@ -14,8 +14,7 @@ before_script:
 
 script:
   - mkdir -p /opt
-  - cd /opt
-  - tar xvf erlang-19.2-elixir-1.4.5-ubuntu-14.04.tar.bz2
+  - tar xvf erlang-19.2-elixir-1.4.5-ubuntu-14.04.tar.bz2 opt/
   - export PATH=/opt/elixir/1.4.5/bin:/opt/erlang/19.2/bin:$PATH
   - elixir --version
   - >
