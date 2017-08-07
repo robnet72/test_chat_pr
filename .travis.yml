@@ -3,7 +3,6 @@ sudo: required
 
 before_script:
   - >
-    elixir --version
     cat /etc/*release
     if [ "${TRAVIS_EVENT_TYPE}" == "push" ] && [[ "${TRAVIS_BRANCH}" != "stable" && "${TRAVIS_BRANCH}" != "master" ]]; then
       echo "Push event will be processed only for stable and master branches, exiting..."
