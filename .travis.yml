@@ -1,4 +1,5 @@
-dist: elixirlang/elixir
+dist: trusty
+language: elixirlang/elixir
 sudo: required
 
 before_script:
