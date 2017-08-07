@@ -1,10 +1,9 @@
 dist: trusty
-language: elixirlang/elixir
+language: c
 sudo: required
 
 before_script:
   - >
-    cat /etc/*release
     if [ "${TRAVIS_EVENT_TYPE}" == "push" ] && [[ "${TRAVIS_BRANCH}" != "stable" && "${TRAVIS_BRANCH}" != "master" ]]; then
       echo "Push event will be processed only for stable and master branches, exiting..."
       exit 0
@@ -14,6 +13,11 @@ before_script:
     fi
 
 script:
+  - mkdir -p /opt
+  - cd /opt
+  - tar xvf erlang-19.2-elixir-1.4.5-ubuntu-14.04.tar.bz2
+  - export PATH=/opt/elixir/1.4.5/bin:/opt/erlang/19.2/bin:$PATH
+  - elixir --version
   - >
     export GITHUB_COMMENTS_URL="https://api.github.com/repos/robnet72/test_chat_pr/issues/${TRAVIS_PULL_REQUEST}/comments?access_token=${GITHUB_ACCESS_TOKEN}"
   - >
