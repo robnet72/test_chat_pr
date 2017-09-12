@@ -4,10 +4,6 @@ dist: trusty
 sudo: required
 
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y elixir
-
 before_script:
   - >
     if [ "${TRAVIS_EVENT_TYPE}" == "push" ] && [[ "${TRAVIS_BRANCH}" != "stable" && "${TRAVIS_BRANCH}" != "master" ]]; then
@@ -38,6 +34,8 @@ script:
       exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
+  - echo $PWD
+  - echo `pwd`
   - elixir --version
 #  - sudo apt list --installed
   - sudo apt-get remove --purge erlang* || true
