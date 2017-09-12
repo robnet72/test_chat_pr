@@ -40,6 +40,7 @@ script:
   - sudo apt-get remove --purge erlang* || true
   - sudo apt-get remove --purge elixir* || true
   - sudo apt-get autoremove
+  - sudo rm -rf /home/travis/.kiex/
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
   - elixir --version
