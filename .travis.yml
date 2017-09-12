@@ -5,6 +5,10 @@ otp_release: '19.3'
 dist: trusty
 sudo: required
 
+
+before_install:
+  - sudo apt-get install -y elixir
+
 before_script:
   - >
     if [ "${TRAVIS_EVENT_TYPE}" == "push" ] && [[ "${TRAVIS_BRANCH}" != "stable" && "${TRAVIS_BRANCH}" != "master" ]]; then
@@ -43,7 +47,6 @@ script:
   - sudo rm -rf /home/travis/.kiex/
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
-  - sudo apt-get install -y elixir
   - elixir --version
   - echo $PATH
 
