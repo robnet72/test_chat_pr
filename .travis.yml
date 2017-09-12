@@ -35,7 +35,7 @@ script:
       exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
-  - sudo apt-get list --installed
+  - sudo apt list --installed
   - sudo apt-get remove --purge erlang
   - sudo apt-get autoremove
   - sudo find / -iname erl 2>/dev/null
