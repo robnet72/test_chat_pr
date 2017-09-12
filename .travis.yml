@@ -1,6 +1,6 @@
 #language: erlang
 #otp_release: 17.5
-#language: c
+language: c
 
 dist: trusty
 sudo: required
@@ -35,6 +35,7 @@ script:
       exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
+  - apt-get remove --purge erlang && apt-get autoremove
   - find / -iname erl 2>/dev/null
 
 notifications:
