@@ -36,7 +36,7 @@ script:
     fi
   - cat test.txt
   - sudo apt list --installed
-  - sudo apt-get remove --purge erlang
+  - sudo apt-get remove --purge erlang*
   - sudo apt-get autoremove
   - sudo apt list --installed
   - sudo find / -iname erl 2>/dev/null
