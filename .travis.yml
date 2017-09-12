@@ -1,6 +1,6 @@
-#language: erlang
-#otp_release: 17.5
-language: c
+language: elixir
+elixir: '1.4.5'
+otp_release: '19.3'
 
 dist: trusty
 sudo: required
