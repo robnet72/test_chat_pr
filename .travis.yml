@@ -35,8 +35,10 @@ script:
       exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
-  - apt-get remove --purge erlang && apt-get autoremove
-  - find / -iname erl 2>/dev/null
+  - sudo apt-get remove --purge erlang
+  - sudo apt-get autoremove
+  - sudo find / -iname erl 2>/dev/null
+  - sudo find / -iname elixir 2>/dev/null
 
 notifications:
   slack:
