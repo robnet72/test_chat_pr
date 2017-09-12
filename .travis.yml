@@ -34,7 +34,7 @@ script:
       exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
-  - find / -iname erl
+  - find / -iname erl 2>/dev/null
 
 notifications:
   slack:
