@@ -36,13 +36,14 @@ script:
     fi
   - cat test.txt
   - elixir --version
-  - sudo apt list --installed
+#  - sudo apt list --installed
   - sudo apt-get remove --purge erlang* || true
   - sudo apt-get remove --purge elixir* || true
   - sudo apt-get autoremove
-#  - sudo apt list --installed
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
+  - elixir --version
+  - echo $PATH
 
 notifications:
   slack:
