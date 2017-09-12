@@ -43,6 +43,7 @@ script:
   - sudo rm -rf /home/travis/.kiex/
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
+  - sudo apt-get install -y elixir
   - elixir --version
   - echo $PATH
 
