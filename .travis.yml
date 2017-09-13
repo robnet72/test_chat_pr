@@ -40,7 +40,8 @@ script:
   - sudo dpkg -i erlang-solutions_1.0_all.deb
   - sudo apt-get update
   - sudo apt-get install elixir
-  - export PATH=/usr/local/bin:/usr:bin:$PATH
+  - sudo kiex implode
+#  - export PATH=/usr/local/bin:/usr:bin:$PATH
   - which mix
   - mix --version
 #  - sudo apt list --installed
