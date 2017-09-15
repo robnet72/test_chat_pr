@@ -49,8 +49,10 @@ script:
   - mix local.hex --force
   - echo "YES" | kiex implode || true
   - rm -rf ~/.mix/ ~/.kiex/
+  - ls -la ~
   - mix local.hex --force
-#  - sudo apt list --installed
+  - sudo apt list --installed
+  - which kiex
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
   - elixir --version
