@@ -36,6 +36,9 @@ script:
   - cat test.txt
   - which mix
   - mix --version
+  - elixir --version
+  - elixir -v
+  - mix -v
   - sudo apt-get remove --purge erlang* || true
   - sudo apt-get remove --purge elixir* || true
   - sudo apt-get autoremove
