@@ -48,7 +48,7 @@ script:
   - mix --version
   - mix local.hex --force
   - echo "YES" | kiex implode || true
-  - rm -rf ~/.mix
+  - rm -rf ~/.mix/ ~/.kiex/
   - mix local.hex --force
 #  - sudo apt list --installed
   - sudo find / -iname erl 2>/dev/null
