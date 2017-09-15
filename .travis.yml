@@ -35,6 +35,7 @@ script:
     fi
   - cat test.txt
   - which mix
+  - mix --version
   - sudo apt-get remove --purge erlang* || true
   - sudo apt-get remove --purge elixir* || true
   - sudo apt-get autoremove
@@ -44,11 +45,11 @@ script:
   - sudo apt-get install elixir
   - export PATH=/usr/local/bin:/usr:bin:$PATH
   - which mix
+  - mix --version
   - mix local.hex --force
   - echo "YES" | kiex implode || true
+  - rm -rf ~/.mix
   - mix local.hex --force
-  - mix --version
-  - which mix
 #  - sudo apt list --installed
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
