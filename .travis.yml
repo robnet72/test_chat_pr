@@ -45,9 +45,10 @@ script:
   - which mix
   - mix local.hex --force
   - echo "YES" | kiex implode || true
+  - export PATH=/usr/local/bin:/usr:bin:$PATH
   - mix local.hex --force
-#  - export PATH=/usr/local/bin:/usr:bin:$PATH
   - mix --version
+  - which mix
 #  - sudo apt list --installed
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
