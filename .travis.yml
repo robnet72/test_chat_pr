@@ -42,10 +42,10 @@ script:
   - sudo dpkg -i erlang-solutions_1.0_all.deb
   - sudo apt-get update
   - sudo apt-get install elixir
+  - export PATH=/usr/local/bin:/usr:bin:$PATH
   - which mix
   - mix local.hex --force
   - echo "YES" | kiex implode || true
-  - export PATH=/usr/local/bin:/usr:bin:$PATH
   - mix local.hex --force
   - mix --version
   - which mix
