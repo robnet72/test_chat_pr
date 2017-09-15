@@ -34,18 +34,21 @@ script:
       exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
-#  - sudo apt-get remove --purge erlang* || true
-#  - sudo apt-get remove --purge elixir* || true
-#  - wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
-#  - sudo dpkg -i erlang-solutions_1.0_all.deb
-#  - sudo apt-get update
-#  - sudo apt-get install elixir
-  - echo "YES" | kiex implode || true
-#  - export PATH=/usr/local/bin:/usr:bin:$PATH
   - which mix
+  - sudo apt-get remove --purge erlang* || true
+  - sudo apt-get remove --purge elixir* || true
+  - sudo apt-get autoremove
+  - wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+  - sudo dpkg -i erlang-solutions_1.0_all.deb
+  - sudo apt-get update
+  - sudo apt-get install elixir
+  - which mix
+  - mix local.hex --force
+  - echo "YES" | kiex implode || true
+  - mix local.hex --force
+#  - export PATH=/usr/local/bin:/usr:bin:$PATH
   - mix --version
 #  - sudo apt list --installed
-  - sudo apt-get autoremove
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
   - elixir --version
