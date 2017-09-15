@@ -48,8 +48,9 @@ script:
   - mix --version
   - mix local.hex --force
   - echo "YES" | kiex implode || true
-  - rm -rf ~/.mix/ ~/.kiex/
-  - ls -la ~
+  - rm -rf "$HOME/.mix" "$HOME/.kiex/"
+  - pwd
+  - ls -la "$HOME"
   - mix local.hex --force
   - sudo apt list --installed
   - which kiex
