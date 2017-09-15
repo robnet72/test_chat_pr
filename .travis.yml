@@ -52,8 +52,9 @@ script:
   - pwd
   - ls -la "$HOME"
   - mix local.hex --force
-  - sudo apt list --installed
+#  - sudo apt list --installed
   - which kiex
+  - printenv
   - sudo find / -iname erl 2>/dev/null
   - sudo find / -iname elixir 2>/dev/null
   - elixir --version
