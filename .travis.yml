@@ -51,6 +51,7 @@ script:
   - rm -rf "$HOME/.mix" "$HOME/.kiex/"
   - pwd
   - ls -la "$HOME"
+  - unset MIX_ARCHIVES
   - mix local.hex --force
 #  - sudo apt list --installed
   - which kiex
