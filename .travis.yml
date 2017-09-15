@@ -47,10 +47,10 @@ script:
   - which mix
   - mix --version
   - mix local.hex --force
+  - ls -la $MIX_ARCHIVES
   - echo "YES" | kiex implode || true
   - rm -rf "$HOME/.mix" "$HOME/.kiex/"
   - pwd
-  - ls -la $MIX_ARCHIVES
   - unset MIX_ARCHIVES
   - mix local.hex --force
 #  - sudo apt list --installed
