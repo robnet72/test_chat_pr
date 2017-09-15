@@ -34,11 +34,9 @@ script:
       exit $TRAVIS_TEST_RESULT
     fi
   - cat test.txt
+  - kiex list
   - which mix
   - mix --version
-  - elixir --version
-  - elixir -v
-  - mix -v
   - sudo apt-get remove --purge erlang* || true
   - sudo apt-get remove --purge elixir* || true
   - sudo apt-get autoremove
