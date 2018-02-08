@@ -1,4 +1,3 @@
-aaa
 ABCDE1234
 LINE2
 LINE3
